@@ -1,28 +1,26 @@
-const form = document.getElementById("myForm");
-const submitButton = documetn.getElementById("btn");
+function valid() {
+  const name = document.getElementById("userName").value;
+  const mail = document.getElementById("mail").value;
+  const phone = document.getElementById("phno").value;
+  const address = document.getElementById("address").value;
 
-function checkValidity() {
-  const name = document.getElementById("userName");
-  const mail = document.getElementById("mail");
-  const phone = document.getElementById("phno");
-  const address = document.getElementById("address");
+  // performing validations
 
-  if (
-    name.value.trim() == "" ||
-    mail.value.trim() == "" ||
-    phone.value.trim() == "" ||
-    address.value.trim() == ""
-  ) {
-    return false;
-  } else {
-    return true;
-  }
+  // getting the existing users form the local storage
+  const users = JSON.parse(localStorage.getItem("clients")) || [];
+
+  // adding new user to array by creating a new object
+  const user = {
+    name: name,
+    email: mail,
+    phone: phone,
+    address: address,
+  };
+
+  users.push(user);
+
+  // updatin array in local storage
+  localStorage.setItem("clients", JSON.stringify(users));
+
+  return true;
 }
-
-form.addEventListener("input", function () {
-  if (checkValidity()) {
-    submitButton.disabled = false;
-  } else {
-    submitButton.disabled = true;
-  }
-});
